@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/*
+ * @source tells Tailwind v4 exactly where to scan for utility classes.
+ * Required on Vercel/Linux CI where the working directory is /vercel/path0
+ * and relative paths differ from local Windows builds.
+ */
+@source "../app/**/*.{ts,tsx,js,jsx}";
+@source "../components/**/*.{ts,tsx,js,jsx}";
 /* ─── KaryaByte Design Tokens ─────────────────────────────────────────────── */
 @theme inline {
   --color-kb-obsidian:   #050505;
