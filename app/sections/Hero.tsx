@@ -8,24 +8,25 @@ import { useHeroAnimations } from "../hooks/useHeroAnimations";
 /**
  * Hero — above-the-fold layout (100vh desktop target)
  *
- * Vertical budget at 1024px viewport:
- *   64px   navbar (fixed)
- *   24px   pt-24 top padding
- *   32px   badge + mb-5
- *   ~175px headline (3 lines clamp ~3.8rem)
- *   24px   mb-5
- *   ~72px  subline (2 lines 1.1rem)
- *   32px   mb-8
- *   48px   CTA row
+ * Revised vertical budget at 1024px viewport (navbar = 64px fixed):
+ *   112px  pt-28 top padding  (navbar 64 + 48 breathing room)
+ *   38px   badge + mb-6
+ *   ~175px headline (3 lines clamp 2.4–5rem)
  *   20px   mb-5
+ *   ~65px  subline (2 lines 1.1rem, lineHeight 1.6)
+ *   32px   mb-8
+ *   40px   CTA row
+ *   32px   mt-8 spacer (between CTAs and metrics)
  *   ────────────────
- *   ~491px content
- *   16px   pb-4
+ *   ~514px above metrics
+ *   pb-4   bottom of main block
  *   1px    divider + mb-6
- *   ~88px  metrics strip (clamp 1.5rem numbers)
- *   24px   scroll indicator
+ *   ~88px  metrics strip (clamp 1.5rem numbers + labels)
+ *   ~44px  scroll indicator + pb-5
  *   ────────────────
- *   Total ≈ 980px  ✓ fits comfortably inside 1024px
+ *   Total ≈ 980px  ✓ fits inside 1024px with ~44px margin
+ *
+ * Mobile (< 640px): pt-24 keeps badge below the nav on smaller screens.
  */
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -41,7 +42,7 @@ export default function Hero() {
       <BlueprintOverlay />
 
       {/* ── Main content ── */}
-      <div className="kb-container relative z-10 w-full pt-24 pb-4 flex-1 flex flex-col justify-center">
+      <div className="kb-container relative z-10 w-full pt-28 sm:pt-32 pb-4 flex-1 flex flex-col justify-start">
         {/* Dark vignette — text legibility over 3D canvas */}
         <div
           aria-hidden="true"
@@ -53,7 +54,7 @@ export default function Hero() {
         />
 
         {/* Studio badge */}
-        <div className="mb-5 flex justify-center relative" data-hero="badge">
+        <div className="mb-6 flex justify-center relative" data-hero="badge">
           <span className="kb-badge">
             <span className="w-1 h-1 rounded-full bg-[#E4E4E7]" />
             {studio.positioning}&nbsp;·&nbsp;Indonesia
@@ -105,6 +106,9 @@ export default function Hero() {
             View Our Work
           </a>
         </div>
+
+        {/* Explicit spacer — keeps metrics strip close without flex-grow pushing it down */}
+        <div className="mt-8 flex-1" aria-hidden="true" />
       </div>
 
       {/* ── Metrics strip ── */}
